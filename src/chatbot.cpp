@@ -44,7 +44,83 @@ ChatBot::~ChatBot()
 
 //// STUDENT CODE
 ////
+ChatBot::ChatBot(const ChatBot &source) {
+    std::cout << "ChatBot Copy" << std::endl;
+    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+    
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
 
+    _image = source._image;
+}
+
+ChatBot &ChatBot::operator=(const ChatBot &source) {
+    std::cout << "ChatBot Copy Assignment" << std::endl;
+
+    if (this==&source) {
+        return *this;
+    }
+
+    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+
+    if(_image != NULL)
+    {
+        delete _image;
+        _image = NULL;
+    }
+    _image = source._image;
+
+    return *this;
+}
+
+ChatBot::ChatBot(ChatBot &&source) {
+    std::cout << "ChatBot Move" << std::endl;
+    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+
+    _image = source._image;
+
+    source._image = NULL; // image is passed, so no longer needs to clean
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
+    source._currentNode = nullptr;
+}
+
+ChatBot &ChatBot::operator=(ChatBot &&source) {
+    std::cout << "ChatBot Move Assignment" << std::endl;
+
+    if (this==&source) {
+        return *this;
+    }
+
+    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+
+    if(_image != NULL)
+    {
+        delete _image;
+        _image = NULL;
+    }
+    _image = source._image;
+
+    source._image = NULL; // image is passed, so no longer needs to clean
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
+    source._currentNode = nullptr;
+
+    return *this;
+}
 ////
 //// EOF STUDENT CODE
 
