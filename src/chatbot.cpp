@@ -52,7 +52,7 @@ ChatBot::ChatBot(const ChatBot &source) {
     _chatLogic = source._chatLogic;
     _chatLogic->SetChatbotHandle(this);
 
-    _image = source._image;
+    _image = new wxBitmap(*source._image);
 }
 
 ChatBot &ChatBot::operator=(const ChatBot &source) {
@@ -73,7 +73,7 @@ ChatBot &ChatBot::operator=(const ChatBot &source) {
         delete _image;
         _image = NULL;
     }
-    _image = source._image;
+    _image = new wxBitmap(*source._image);
 
     return *this;
 }
